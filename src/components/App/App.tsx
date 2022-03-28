@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Box, StyledEngineProvider, ThemeProvider as MUIThemeProvider } from '@mui/material';
 import { Calendar } from '../Calendar/Calendar';
 import { theme, inputGlobalStyles } from '../../styles/index';
+import { StoreContextProvider } from '../../context/StoreContext';
 
 const App: FC = () => {
   return (
@@ -13,12 +14,14 @@ const App: FC = () => {
 
 const AppWithMui: FC = () => {
   return (
-    <StyledEngineProvider injectFirst>
-      <MUIThemeProvider theme={theme}>
-        {inputGlobalStyles}
-        <App />
-      </MUIThemeProvider>
-    </StyledEngineProvider>
+    <StoreContextProvider>
+      <StyledEngineProvider injectFirst>
+        <MUIThemeProvider theme={theme}>
+          {inputGlobalStyles}
+          <App />
+        </MUIThemeProvider>
+      </StyledEngineProvider>
+    </StoreContextProvider>
   );
 };
 

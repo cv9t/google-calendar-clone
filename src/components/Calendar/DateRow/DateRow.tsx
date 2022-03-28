@@ -1,23 +1,39 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import { Moment } from 'moment';
-import { calendarTypes } from '../../../types';
-import { DateRowWrapper } from './DateRow.styled';
-import { Box } from '@mui/material';
+import { CalendarTypes } from '../../../types';
+import { DateRowWrapper, Presentation, Wrapper } from './DateRow.styled';
 import { DateCell } from '../DateCell/DateCell';
+import { useEvents } from '../../../hooks';
+import { EventList } from '../EventList/EventList';
 
 interface IDateRowProps {
   currentDate: Moment;
-  row: calendarTypes.ICell[];
+  row: CalendarTypes.Cell[];
 }
 
 const DateRow: FC<IDateRowProps> = ({ currentDate, row }) => {
+  const rowRef = useRef<HTMLDivElement | null>(null);
+  const { eventOrder, hiddenEvents } = useEvents(row, rowRef);
+
   return (
     <DateRowWrapper>
-      <Box sx={{ display: 'flex', flex: 1 }}>
+      <Wrapper>
         {row.map((cell) => (
           <DateCell key={cell.id} currentDate={currentDate} cell={cell} />
         ))}
-      </Box>
+      </Wrapper>
+      <Presentation ref={rowRef}>
+        {row.map((cell) => (
+          <Wrapper key={cell.id}>
+            <EventList
+              date={cell.date}
+              events={cell.events}
+              eventOrder={eventOrder}
+              hiddenEvents={hiddenEvents}
+            />
+          </Wrapper>
+        ))}
+      </Presentation>
     </DateRowWrapper>
   );
 };

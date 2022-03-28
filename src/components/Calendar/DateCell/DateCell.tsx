@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Typography } from '@mui/material';
 import moment, { Moment } from 'moment';
-import { calendarTypes } from '../../../types';
+import { CalendarTypes } from '../../../types';
 import { DateCellWrapper, DateWrapper } from './DateCell.styled';
 import cn from 'classnames';
 
 interface IDateCellProps {
   currentDate: Moment;
-  cell: calendarTypes.ICell;
+  cell: CalendarTypes.Cell;
 }
 
 const DateCell: FC<IDateCellProps> = ({ currentDate, cell }) => {

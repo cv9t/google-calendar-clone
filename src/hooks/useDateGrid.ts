@@ -1,14 +1,14 @@
 import { Moment } from 'moment';
 import { useMemo } from 'react';
-import { calendarTypes } from '../types/index';
+import { CalendarTypes } from '../types/index';
 import { calcWeeksInMonth, createDateGrid } from '../utils/index';
 
-const useDateGrid = (date: Moment): calendarTypes.ICell[][] => {
-  const dateGrid: calendarTypes.ICell[][] = useMemo(() => {
+const useDateGrid = (date: Moment, events: CalendarTypes.Event[]): CalendarTypes.Cell[][] => {
+  const dateGrid: CalendarTypes.Cell[][] = useMemo(() => {
     const totalWeeks = calcWeeksInMonth(date);
-    return createDateGrid(date, totalWeeks);
+    return createDateGrid(date, totalWeeks, events);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date.month()]);
+  }, [date.month(), events]);
 
   return dateGrid;
 };

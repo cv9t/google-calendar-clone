@@ -1,3 +1,3 @@
-import * as calendarTypes from './calendar';
+import * as CalendarTypes from './calendar';
 
-export { calendarTypes };
+export { CalendarTypes };

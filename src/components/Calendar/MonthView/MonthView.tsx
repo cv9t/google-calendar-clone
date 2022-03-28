@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import { Grid, Tooltip, IconButton, Button, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -35,9 +35,11 @@ const MonthView: FC<IMonthViewProps> = ({
         </Grid>
         <Grid container item xs="auto" alignItems="center" spacing={3.5}>
           <Grid item>
-            <Button variant="contained" onClick={todayMonthHandler}>
-              Today
-            </Button>
+            <Tooltip title={moment().format('ll')}>
+              <Button variant="contained" onClick={todayMonthHandler}>
+                Today
+              </Button>
+            </Tooltip>
           </Grid>
           <Grid item>
             <Typography fontSize="20px">{currentDate.format('MMMM YYYY')}</Typography>
