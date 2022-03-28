@@ -1,8 +1,25 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React, { FC } from 'react';
+import { Box, StyledEngineProvider, ThemeProvider as MUIThemeProvider } from '@mui/material';
+import { Calendar } from '../Calendar/Calendar';
+import { theme, inputGlobalStyles } from '../../styles/index';
 
-function App() {
-  return <Box sx={{ height: '100vh' }} />;
-}
+const App: FC = () => {
+  return (
+    <Box sx={{ height: '100vh' }}>
+      <Calendar />
+    </Box>
+  );
+};
 
-export default App;
+const AppWithMui: FC = () => {
+  return (
+    <StyledEngineProvider injectFirst>
+      <MUIThemeProvider theme={theme}>
+        {inputGlobalStyles}
+        <App />
+      </MUIThemeProvider>
+    </StyledEngineProvider>
+  );
+};
+
+export { AppWithMui as App };
