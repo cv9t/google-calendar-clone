@@ -3,9 +3,8 @@ import { Moment } from 'moment';
 import { CalendarTypes } from '../../../types';
 import { DateRowWrapper, Presentation, Wrapper } from './DateRow.styled';
 import { DateCell } from '../DateCell/DateCell';
-import { useEvents } from '../../../hooks';
 import { EventList } from '../EventList/EventList';
-
+import { useEvents } from '../../../hooks';
 interface IDateRowProps {
   currentDate: Moment;
   row: CalendarTypes.Cell[];

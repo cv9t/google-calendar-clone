@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import moment, { Moment } from 'moment';
-import { Grid, Tooltip, IconButton, Button, Typography } from '@mui/material';
+import { Tooltip, IconButton, Button, Typography, Toolbar } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { MonthViewWrapper } from './MonthView.styled';
+import { StyledAppBar } from './MonthView.styled';
 
 interface IMonthViewProps {
   currentDate: Moment;
@@ -19,34 +19,26 @@ const MonthView: FC<IMonthViewProps> = ({
   todayMonthHandler,
 }) => {
   return (
-    <MonthViewWrapper>
-      <Grid container alignItems={'center'} spacing={2}>
-        <Grid item xs="auto">
-          <Tooltip title="Previous month">
-            <IconButton onClick={prevMonthHandler} sx={{ marginRight: 0.5 }}>
-              <ArrowBackIosNewIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Next month">
-            <IconButton onClick={nextMonthHandler}>
-              <ArrowForwardIosIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-        <Grid container item xs="auto" alignItems="center" spacing={3.5}>
-          <Grid item>
-            <Tooltip title={moment().format('ll')}>
-              <Button variant="contained" onClick={todayMonthHandler}>
-                Today
-              </Button>
-            </Tooltip>
-          </Grid>
-          <Grid item>
-            <Typography fontSize="20px">{currentDate.format('MMMM YYYY')}</Typography>
-          </Grid>
-        </Grid>
-      </Grid>
-    </MonthViewWrapper>
+    <StyledAppBar position="sticky" color="transparent">
+      <Toolbar>
+        <Tooltip title="Previous month">
+          <IconButton onClick={prevMonthHandler} sx={{ mr: 0.5 }}>
+            <ArrowBackIosNewIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Next month">
+          <IconButton onClick={nextMonthHandler} sx={{ mr: 2.5 }}>
+            <ArrowForwardIosIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title={moment().format('ll')}>
+          <Button variant="contained" onClick={todayMonthHandler} sx={{ mr: 3.5 }}>
+            Today
+          </Button>
+        </Tooltip>
+        <Typography fontSize="20px">{currentDate.format('MMMM YYYY')}</Typography>
+      </Toolbar>
+    </StyledAppBar>
   );
 };
 

@@ -1,7 +1,5 @@
-import { useDateGrid } from './useDateGrid';
-import { useStore } from './useStore';
-import { useEventOrder } from './useEventOrder';
-import { useEvents } from './useEvents';
-import { useWindowSize } from './useWindowSize';
+import { useStore } from './custom-hooks/useStore';
+import { useEvents } from './event-hooks/useEvents';
+import { useDateGrid } from './calendar-hooks/useDateGrid';
 
-export { useStore, useDateGrid, useEventOrder, useEvents, useWindowSize };
+export { useStore, useEvents, useDateGrid };

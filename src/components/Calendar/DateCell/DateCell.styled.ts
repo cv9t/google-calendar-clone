@@ -11,6 +11,7 @@ export const DateCellWrapper = styled.div`
 
 export const DateWrapper = styled.div`
   flex: 1;
+
   & > span {
     position: relative;
     display: flex;

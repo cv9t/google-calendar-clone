@@ -1,7 +1,8 @@
 import { useContext } from 'react';
-import { StoreContext } from '../context/StoreContext';
+import { StoreContext } from '../../context/StoreContext';
+import { RootStore } from '../../store';
 
-const useStore = () => {
+function useStore(): RootStore {
   const context = useContext(StoreContext);
 
   if (context === undefined) {
@@ -9,6 +10,6 @@ const useStore = () => {
   }
 
   return context;
-};
+}
 
 export { useStore };

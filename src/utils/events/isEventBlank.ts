@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { CalendarTypes } from '../types';
+import { CalendarTypes } from '../../types';
 
 function isEventBlank(date: Moment, event: CalendarTypes.Event): boolean {
   if (
@@ -8,7 +8,6 @@ function isEventBlank(date: Moment, event: CalendarTypes.Event): boolean {
   ) {
     return false;
   }
-
   return true;
 }
 

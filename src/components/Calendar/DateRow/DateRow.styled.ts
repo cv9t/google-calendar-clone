@@ -20,5 +20,5 @@ export const Presentation = styled.div`
   left: 0;
   display: flex;
   flex: 1;
-  margin: 36px 0px 6px;
+  margin: 40px 0px 6px;
 `;

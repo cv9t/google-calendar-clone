@@ -1,13 +1,13 @@
-import { MutableRefObject, useEffect, useState } from 'react';
-import { EventItemHeight } from '../components/Calendar/EventItem/EventItem.styled';
-import { CalendarTypes } from '../types';
-import { useWindowSize } from './useWindowSize';
+import { MutableRefObject, useState, useEffect } from 'react';
+import { EventItemHeight } from '../../components/Calendar/EventItem/EventItem.styled';
+import { CalendarTypes } from '../../types';
+import { useWindowSize } from '../custom-hooks/useWindowSize';
 
 function useHiddenEvents(
   row: CalendarTypes.Cell[],
   eventOrder: CalendarTypes.EventOrder,
   rowRef: MutableRefObject<HTMLDivElement | null>
-) {
+): CalendarTypes.Event[] {
   const [hiddenEvents, setHiddenEvents] = useState<CalendarTypes.Event[]>([]);
   const windowSize = useWindowSize();
 
@@ -42,8 +42,7 @@ function useHiddenEvents(
     setHiddenEvents([
       ...newHiddenEvents.sort((a, b) => Number(eventOrder[a.id]) - Number(eventOrder[b.id])),
     ]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowRef.current, windowSize.height]);
+  }, [row, windowSize.height]);
 
   return hiddenEvents;
 }

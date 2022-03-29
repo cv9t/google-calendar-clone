@@ -1,7 +1,15 @@
-import { calcWeeksInMonth } from './calcWeeksInMonth';
-import { createDateGrid } from './createDateGrid';
-import { dateDiff } from './dateDiff';
-import { getEventOrder } from './getEventOrder';
-import { isEventBlank } from './isEventBlank';
+import { dateDiff } from './date/dateDiff';
+import { calcWeeksInMonth } from './date/calcWeeksInMonth';
+import { createDateGrid } from './date/createDateGrid';
+import { getCurrentWeekday } from './date/getCurrentWeekday';
+import { isEventBlank } from './events/isEventBlank';
+import { getEventOrder } from './events/getEventOrder';
 
-export { calcWeeksInMonth, createDateGrid, dateDiff, getEventOrder, isEventBlank };
+export {
+  dateDiff,
+  calcWeeksInMonth,
+  createDateGrid,
+  getCurrentWeekday,
+  isEventBlank,
+  getEventOrder,
+};

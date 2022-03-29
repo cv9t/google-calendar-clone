@@ -1,11 +1,11 @@
 import { Moment } from 'moment';
-import { CalendarTypes } from '../types';
+import { CalendarTypes } from '../../types';
 
-const createDateGrid = (
+function createDateGrid(
   date: Moment,
   totalWeeks: number,
   events: CalendarTypes.Event[]
-): CalendarTypes.Cell[][] => {
+): CalendarTypes.Cell[][] {
   const startDate = date.clone().startOf('month').startOf('week').subtract(1, 'day');
   const dateGrid: CalendarTypes.Cell[][] = [];
   let c = 0;
@@ -25,6 +25,6 @@ const createDateGrid = (
   }
 
   return dateGrid;
-};
+}
 
 export { createDateGrid };
