@@ -5,7 +5,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 module.exports = (argv) => {
   const isDev = argv.env === 'dev';
   const mode = isDev ? 'development' : 'production';
-  
+
   const webpackPlugins = () => {
     const plugins = [
       new HtmlWebpackPlugin({
@@ -42,6 +42,10 @@ module.exports = (argv) => {
               loader: 'babel-loader',
             },
           ],
+        },
+        {
+          test: /\.svg$/,
+          use: ['@svgr/webpack'],
         },
       ],
     },

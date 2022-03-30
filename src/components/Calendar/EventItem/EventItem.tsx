@@ -1,24 +1,36 @@
-import React, { memo, useEffect } from 'react';
+import React, { FC, memo } from 'react';
 import { CalendarTypes } from '../../../types';
 import { EventItemWrapper, Container, Title } from './EventItem.styled';
 
 interface IEventItemProps {
   event: CalendarTypes.Event;
-  position: number;
+  top: number;
   length: number;
   isEnd?: boolean;
-  isBlank?: boolean;
+  blank?: boolean;
+  arrowRight?: boolean;
+  arrowLeft?: boolean;
 }
 
-const EventItem = ({ event, position, length, isEnd, isBlank }: IEventItemProps) => {
-  useEffect(() => {
-    console.log('EventItem render');
-  });
-
-  return isBlank ? (
-    <EventItemWrapper top={position} length={length} style={{ zIndex: '-1' }} />
+const EventItem: FC<IEventItemProps> = ({
+  event,
+  top,
+  length,
+  blank,
+  isEnd,
+  arrowRight,
+  arrowLeft,
+}) => {
+  return blank ? (
+    <EventItemWrapper top={top} length={length} blank />
   ) : (
-    <EventItemWrapper top={position} length={length} isEnd={isEnd}>
+    <EventItemWrapper
+      top={top}
+      length={length}
+      isEnd={isEnd}
+      arrowRight={arrowRight}
+      arrowLeft={arrowLeft}
+    >
       <Container>
         <Title px={1}>{event.title}</Title>
       </Container>

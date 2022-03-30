@@ -2,11 +2,17 @@ import { MutableRefObject, useState, useEffect, useLayoutEffect } from 'react';
 import { EventItemHeight } from '../../components/Calendar/EventItem/EventItem.styled';
 import { CalendarTypes } from '../../types';
 
+type ReturnValue = {
+  hiddenEvents: CalendarTypes.Event[];
+  showList: boolean;
+};
+
 const useHiddenEvents = (
   row: CalendarTypes.Row,
   rowRef: MutableRefObject<HTMLDivElement | null>
-): CalendarTypes.Event[] => {
+): ReturnValue => {
   const [hiddenEvents, setHiddenEvents] = useState<CalendarTypes.Event[]>([]);
+  const [showList, setShowList] = useState(true);
 
   const windowResizeHandler = () => {
     if (!rowRef.current) return;
@@ -21,14 +27,14 @@ const useHiddenEvents = (
         if (position === events.length - 1) {
           if (
             !newHiddenEvents.find((v) => v.id === event.id) &&
-            EventItemHeight * (position + 1) >= rowEl.clientHeight
+            EventItemHeight * (position + 1) > rowEl.clientHeight
           ) {
             newHiddenEvents.push(event);
           }
         } else if (position < events.length - 1) {
           if (
             !newHiddenEvents.find((v) => v.id === event.id) &&
-            EventItemHeight * (position + 2) >= rowEl.clientHeight
+            EventItemHeight * (position + 2) > rowEl.clientHeight
           ) {
             newHiddenEvents.push(event);
           }
@@ -44,6 +50,8 @@ const useHiddenEvents = (
       }
       return prev;
     });
+
+    setShowList((prev) => !(rowEl.clientHeight < EventItemHeight && prev));
   };
 
   useLayoutEffect(() => {
@@ -58,7 +66,7 @@ const useHiddenEvents = (
     };
   }, []);
 
-  return hiddenEvents;
+  return { hiddenEvents, showList };
 };
 
 export { useHiddenEvents };

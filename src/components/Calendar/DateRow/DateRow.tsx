@@ -13,7 +13,7 @@ interface IDateRowProps {
 
 const DateRow: FC<IDateRowProps> = ({ currentDate, row }) => {
   const rowRef = useRef<HTMLDivElement | null>(null);
-  const hiddenEvents = useHiddenEvents(row, rowRef);
+  const { hiddenEvents, showList } = useHiddenEvents(row, rowRef);
 
   useEffect(() => {
     console.log('DateRow render');
@@ -29,12 +29,15 @@ const DateRow: FC<IDateRowProps> = ({ currentDate, row }) => {
       <Presentation ref={rowRef}>
         {row.cells.map((cell) => (
           <Wrapper key={cell.id}>
-            <EventList
-              date={cell.date}
-              events={cell.events}
-              eventOrder={row.eventOrder}
-              hiddenEvents={hiddenEvents}
-            />
+            {showList && (
+              <EventList
+                currentDate={currentDate}
+                cellDate={cell.date}
+                events={cell.events}
+                eventOrder={row.eventOrder}
+                hiddenEvents={hiddenEvents}
+              />
+            )}
           </Wrapper>
         ))}
       </Presentation>
