@@ -1,17 +1,17 @@
-import { RootStore } from '.';
-import { CalendarTypes } from '../types';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
+import { RootStore } from '.';
+import { CalendarTypes } from '../types';
 
 class EventStore {
-  public rootStore: RootStore;
+  private rootStore: RootStore;
   public events: CalendarTypes.Event[] = [
     {
       id: '2',
       title: 'Long Event 2',
-      from: moment().clone(),
-      to: moment().clone(),
-      duration: 1,
+      from: moment().clone().add(1, 'day'),
+      to: moment().clone().add(3, 'day'),
+      duration: 3,
     },
     {
       id: '3',

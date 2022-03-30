@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-function calcWeeksInMonth(date: Moment) {
+function calcWeeksInMonth(date: Moment): number {
   const monthStart = date.clone().startOf('month').startOf('week').subtract(1, 'day');
   const monthEnd = date.clone().endOf('month').endOf('week');
 

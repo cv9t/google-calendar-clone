@@ -1,9 +1,9 @@
-import React, { createContext, FC, ReactNode, useMemo } from 'react';
-import { RootStore } from '../store';
+import React, { createContext, ReactNode, useMemo } from 'react';
+import { RootStore } from '../store/index';
 
 const StoreContext = createContext<RootStore | undefined>(undefined);
 
-const StoreContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+const StoreContextProvider = ({ children }: { children: ReactNode }) => {
   const store = useMemo(() => new RootStore(), []);
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;

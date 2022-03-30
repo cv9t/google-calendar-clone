@@ -1,26 +1,23 @@
-import { MutableRefObject, useState, useEffect } from 'react';
+import { MutableRefObject, useState, useEffect, useLayoutEffect } from 'react';
 import { EventItemHeight } from '../../components/Calendar/EventItem/EventItem.styled';
 import { CalendarTypes } from '../../types';
-import { useWindowSize } from '../custom-hooks/useWindowSize';
 
-function useHiddenEvents(
-  row: CalendarTypes.Cell[],
-  eventOrder: CalendarTypes.EventOrder,
+const useHiddenEvents = (
+  row: CalendarTypes.Row,
   rowRef: MutableRefObject<HTMLDivElement | null>
-): CalendarTypes.Event[] {
+): CalendarTypes.Event[] => {
   const [hiddenEvents, setHiddenEvents] = useState<CalendarTypes.Event[]>([]);
-  const windowSize = useWindowSize();
 
-  useEffect(() => {
+  const windowResizeHandler = () => {
     if (!rowRef.current) return;
 
     const rowEl = rowRef.current;
+    const { cells, eventOrder } = row;
     const newHiddenEvents: CalendarTypes.Event[] = [];
 
-    row.forEach(({ events }) => {
+    cells.forEach(({ events }) => {
       events.forEach((event) => {
         const position = eventOrder[event.id] || 0;
-
         if (position === events.length - 1) {
           if (
             !newHiddenEvents.find((v) => v.id === event.id) &&
@@ -39,12 +36,29 @@ function useHiddenEvents(
       });
     });
 
-    setHiddenEvents([
-      ...newHiddenEvents.sort((a, b) => Number(eventOrder[a.id]) - Number(eventOrder[b.id])),
-    ]);
-  }, [row, windowSize.height]);
+    setHiddenEvents((prev) => {
+      if (prev.length !== newHiddenEvents.length) {
+        return [...newHiddenEvents].sort(
+          (a, b) => Number(eventOrder[a.id]) - Number(eventOrder[b.id])
+        );
+      }
+      return prev;
+    });
+  };
+
+  useLayoutEffect(() => {
+    windowResizeHandler();
+  }, [row]);
+
+  useEffect(() => {
+    window.addEventListener('resize', windowResizeHandler);
+
+    return () => {
+      window.removeEventListener('resize', windowResizeHandler);
+    };
+  }, []);
 
   return hiddenEvents;
-}
+};
 
 export { useHiddenEvents };

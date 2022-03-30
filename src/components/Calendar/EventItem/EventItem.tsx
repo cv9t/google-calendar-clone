@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useEffect } from 'react';
 import { CalendarTypes } from '../../../types';
 import { EventItemWrapper, Container, Title } from './EventItem.styled';
 
@@ -10,7 +10,11 @@ interface IEventItemProps {
   isBlank?: boolean;
 }
 
-function EventItem({ event, position, length, isEnd, isBlank }: IEventItemProps) {
+const EventItem = ({ event, position, length, isEnd, isBlank }: IEventItemProps) => {
+  useEffect(() => {
+    console.log('EventItem render');
+  });
+
   return isBlank ? (
     <EventItemWrapper top={position} length={length} style={{ zIndex: '-1' }} />
   ) : (
@@ -20,6 +24,8 @@ function EventItem({ event, position, length, isEnd, isBlank }: IEventItemProps)
       </Container>
     </EventItemWrapper>
   );
-}
+};
 
-export default EventItem;
+const MemoizedEventItem = memo(EventItem);
+
+export { MemoizedEventItem as EventItem };

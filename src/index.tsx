@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components/App/App';
+import { AppWithMui } from './components/App/App';
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLDivElement);
+ReactDOM.render(<AppWithMui />, document.getElementById('root') as HTMLDivElement);

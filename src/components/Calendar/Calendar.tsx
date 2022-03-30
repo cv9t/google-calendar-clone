@@ -1,10 +1,10 @@
-import React, { useState, FC } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { CalendarWrapper } from './Calendar.styled';
-import { MonthView } from './MonthView/MonthView';
+import { AppBar } from './AppBar/AppBar';
 import { DateGrid } from './DateGrid/DateGrid';
 
-const Calendar: FC = () => {
+const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(moment());
 
   const prevMonthHandler = () => {
@@ -21,10 +21,10 @@ const Calendar: FC = () => {
 
   return (
     <CalendarWrapper>
-      <MonthView
+      <AppBar
         currentDate={currentDate}
-        nextMonthHandler={nextMonthHandler}
         prevMonthHandler={prevMonthHandler}
+        nextMonthHandler={nextMonthHandler}
         todayMonthHandler={todayMonthHandler}
       />
       <DateGrid currentDate={currentDate} />

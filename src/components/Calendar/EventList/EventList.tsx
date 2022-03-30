@@ -1,9 +1,9 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { Moment } from 'moment';
 import { CalendarTypes } from '../../../types';
 import { EventListWrapper, StyledButtonWrapper, StyledButton } from './EventList.styled';
-import { dateDiff, isEventBlank } from '../../../utils';
-import EventItem from '../EventItem/EventItem';
+import { dateDiff } from '../../../helpers';
+import { EventItem } from '../EventItem/EventItem';
 import { EventItemHeight } from '../EventItem/EventItem.styled';
 
 interface IEventListProps {
@@ -18,6 +18,17 @@ const EventList: FC<IEventListProps> = ({ date, events, eventOrder, hiddenEvents
   const hiddenEventsCount = events.length - visibleEvents.length;
   const eventListRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    console.log('EventList render');
+  });
+
+  const isFull = (date: Moment, event: CalendarTypes.Event): boolean => {
+    return (
+      (!event.from.isSame(date, 'date') && date.isSame(date.clone().startOf('week'), 'date')) ||
+      event.from.isSame(date, 'date')
+    );
+  };
+
   const renderEventItem = (event: CalendarTypes.Event) => {
     const leftDays = event.duration - dateDiff(date, event.from, 'day');
     const availableDays = 7 - date.day();
@@ -31,7 +42,7 @@ const EventList: FC<IEventListProps> = ({ date, events, eventOrder, hiddenEvents
         position={eventOrder[event.id] || 0}
         length={length}
         isEnd={isEnd}
-        isBlank={isEventBlank(date, event)}
+        isBlank={!isFull(date, event)}
       />
     );
   };

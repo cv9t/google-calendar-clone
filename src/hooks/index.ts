@@ -1,5 +1,5 @@
-import { useStore } from './custom-hooks/useStore';
-import { useEvents } from './event-hooks/useEvents';
+import { useStore } from './common-hooks/useStore';
 import { useDateGrid } from './calendar-hooks/useDateGrid';
+import { useHiddenEvents } from './calendar-hooks/useHiddenEvents';
 
-export { useStore, useEvents, useDateGrid };
+export { useStore, useDateGrid, useHiddenEvents };

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Paper, Typography } from '@mui/material';
+import { css, Paper, Typography } from '@mui/material';
 
 export const EventItemHeight = 30;
 
@@ -7,6 +7,7 @@ interface IEventItemWrapperProps {
   top: number;
   length: number;
   isEnd?: boolean;
+  isBlank?: boolean;
 }
 
 export const EventItemWrapper = styled.div<IEventItemWrapperProps>`
@@ -17,6 +18,12 @@ export const EventItemWrapper = styled.div<IEventItemWrapperProps>`
   width: ${({ length }) => `calc(${length} * 100%)`};
   height: ${EventItemHeight}px;
   padding-right: ${({ isEnd }) => (isEnd ? '8px' : '0px')};
+
+  ${({ isBlank }) =>
+    isBlank &&
+    css`
+      z-index: -1;
+    `}
 `;
 
 export const Container = styled(Paper)`

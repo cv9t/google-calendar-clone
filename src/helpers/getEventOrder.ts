@@ -1,11 +1,11 @@
-import { CalendarTypes } from '../../types';
-import { dateDiff } from './../date/dateDiff';
+import { CalendarTypes } from '../types';
+import { dateDiff } from '.';
 
-function resetEventOrder(row: CalendarTypes.Cell[]): CalendarTypes.EventOrder {
+function resetEventOrder(cells: CalendarTypes.Cell[]): CalendarTypes.EventOrder {
   const result: CalendarTypes.EventOrder = {};
   const passedEvents: CalendarTypes.Event[] = [];
 
-  row.forEach((cell) => {
+  cells.forEach((cell) => {
     cell.events.forEach((event) => {
       if (!passedEvents.find((e) => e.id === event.id)) {
         result[event.id] = undefined;
@@ -34,10 +34,10 @@ function getPositions(
   return result;
 }
 
-function getEventOrder(row: CalendarTypes.Cell[]): CalendarTypes.EventOrder {
-  const eventOrder: CalendarTypes.EventOrder = resetEventOrder(row);
+function getEventOrder(cells: CalendarTypes.Cell[]): CalendarTypes.EventOrder {
+  const eventOrder: CalendarTypes.EventOrder = resetEventOrder(cells);
 
-  row.forEach(({ date, events }) => {
+  cells.forEach(({ date, events }) => {
     const headEvents = events
       .filter(
         (event) =>

@@ -1,13 +1,15 @@
 import { Moment } from 'moment';
 import { useMemo } from 'react';
 import { CalendarTypes } from '../../types/.';
-import { calcWeeksInMonth, createDateGrid, getCurrentWeekday } from '../../utils/.';
+import { calcWeeksInMonth, createDateGrid, getCurrentWeekday } from '../helpers';
 
-function useDateGrid(
-  date: Moment,
-  events: CalendarTypes.Event[]
-): { dateGrid: CalendarTypes.Cell[][]; currentWeekday: number } {
-  const dateGrid: CalendarTypes.Cell[][] = useMemo(() => {
+type ReturnValue = {
+  dateGrid: CalendarTypes.Row[];
+  currentWeekday: number;
+};
+
+const useDateGrid = (date: Moment, events: CalendarTypes.Event[]): ReturnValue => {
+  const dateGrid: CalendarTypes.Row[] = useMemo(() => {
     const totalWeeks = calcWeeksInMonth(date);
     return createDateGrid(date, totalWeeks, events);
   }, [date.month(), events]);
@@ -15,6 +17,6 @@ function useDateGrid(
   const currentWeekday: number = useMemo(() => getCurrentWeekday(dateGrid), [date.date()]);
 
   return { dateGrid, currentWeekday };
-}
+};
 
 export { useDateGrid };

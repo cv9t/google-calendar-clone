@@ -3,16 +3,16 @@ import moment, { Moment } from 'moment';
 import { Tooltip, IconButton, Button, Typography, Toolbar } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { StyledAppBar } from './MonthView.styled';
+import { StyledAppBar } from './AppBar.styled';
 
-interface IMonthViewProps {
+interface IAppBarProps {
   currentDate: Moment;
   nextMonthHandler: () => void;
   prevMonthHandler: () => void;
   todayMonthHandler: () => void;
 }
 
-const MonthView: FC<IMonthViewProps> = ({
+const AppBar: FC<IAppBarProps> = ({
   currentDate,
   nextMonthHandler,
   prevMonthHandler,
@@ -42,4 +42,4 @@ const MonthView: FC<IMonthViewProps> = ({
   );
 };
 
-export { MonthView };
+export { AppBar };
